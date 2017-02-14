@@ -10,4 +10,8 @@
 (deftest read-file-to-string
   (testing "clojure reading capabilities"
     (def xml-string (slurp "resources/sample-feed.xml"))
-    (is (= (compare xml-string "<>") 0))))
+    (is (= (compare xml-string "<>") 1))))
+
+(deftest saves-xml-to-def
+  (testing "Saves xml file to an string"
+    (is (not (empty? (read-xml "resources/sample-feed.xml"))))))

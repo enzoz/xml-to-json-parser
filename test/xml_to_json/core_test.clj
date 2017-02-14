@@ -1,7 +1,13 @@
 (ns xml-to-json.core-test
   (:require [clojure.test :refer :all]
-            [xml-to-json.core :refer :all]))
+            [xml-to-json.core :refer :all]
+            [clojure.java.io :as io]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest exists-test
+  (testing "Checks if file existes"
+    (is (.exists (io/file "resources/sample-feed.xml")))))
+
+(deftest read-file-to-string
+  (testing "clojure reading capabilities"
+    (def xml-string (slurp "resources/sample-feed.xml"))
+    (is (= (compare xml-string "<>") 0))))

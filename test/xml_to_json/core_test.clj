@@ -15,10 +15,6 @@
     (def xml-string (slurp "resources/sample-feed.xml"))
     (is (= (compare xml-string "<>") 1))))
 
-(deftest saves-xml-to-string
-  (testing "Saves xml file to an string"
-    (is (not (empty? (read-xml "resources/sample-feed.xml"))))))
-
 (deftest transforms-string-to-xml
   (testing "parses xml to clj format"
     (is (clojure.lang.APersistentMap/mapEquals (parser "resources/sample-feed.xml")

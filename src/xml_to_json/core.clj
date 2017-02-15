@@ -8,10 +8,6 @@
   [& args]
   (println "Hello WOrld"))
 
-(defn read-xml
-  [path]
-  (slurp path))
-
 (defn parser
   [path]
-  (parse-str (read-xml path)))
+  (parse-str (slurp path)))

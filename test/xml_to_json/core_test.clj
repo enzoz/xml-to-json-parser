@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [xml-to-json.core :refer :all]
             [clojure.data.xml :refer :all]
+            [clojure.data.json :as json]
             [clojure.java.io :as io]))
 
 (def test-xml (parse-str (slurp "resources/sample-feed.xml")))
@@ -33,4 +34,9 @@
 (deftest tests-clj-mapping-of-xml
   (testing "Maps the xml as a clj obj"
     (is (= (:tag (:tag :rss (:content  parsed-xml)) :channel)))
+  ))
+
+(deftest converts-firt-tag-to-json
+  (testing "Converts first tag to a json file"
+    (is (= (convert-line-to-json (parser "resources/sample-feed.xml")) "{\"rss\":{\"version\":\"2.0\"}}"))
   ))

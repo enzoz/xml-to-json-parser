@@ -22,5 +22,10 @@
 
 (deftest test-if-tag-is-mapped
   (testing "Tests if parser is reading correctly the first tag"
-  (is (= (:tag (parser "resources/sample-feed.xml")) :rss))
+    (is (= (:tag (parser "resources/sample-feed.xml")) :rss))
+))
+
+(deftest test-tag-content
+  (testing "Tests if parser is reading correctly the first tag's content"
+    (is (= (:tag :rss (:attrs (parser "resources/sample-feed.xml"))) {:version "2.0"}))
 ))

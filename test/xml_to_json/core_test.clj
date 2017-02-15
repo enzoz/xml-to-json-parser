@@ -19,3 +19,8 @@
   (testing "parses xml to clj format"
     (is (clojure.lang.APersistentMap/mapEquals (parser "resources/sample-feed.xml")
     test-xml ))))
+
+(deftest test-if-tag-is-mapped
+  (testing "Tests if parser is reading correctly the first tag"
+  (is (= (:tag (parser "resources/sample-feed.xml")) :rss))
+))

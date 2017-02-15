@@ -29,3 +29,8 @@
   (testing "Tests if parser is reading correctly the first tag's content"
     (is (= (:tag :rss (:attrs (parser "resources/sample-feed.xml"))) {:version "2.0"}))
 ))
+
+(deftest tests-clj-mapping-of-xml
+  (testing "Maps the xml as a clj obj"
+    (is (= (:tag (:tag :rss (:content  parsed-xml)) :channel)))
+  ))

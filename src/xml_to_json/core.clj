@@ -3,11 +3,13 @@
             [clojure.data.xml :refer :all])
   (:gen-class))
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello WOrld"))
-
 (defn parser
   [path]
   (parse-str (slurp path)))
+
+(def parsed-xml (parser "resources/sample-feed.xml"))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (println (element :rss parsed-xml)))

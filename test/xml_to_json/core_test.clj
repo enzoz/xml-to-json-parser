@@ -36,7 +36,21 @@
     (is (= (:tag (:tag :rss (:content  parsed-xml)) :channel)))
   ))
 
-(deftest converts-firt-tag-to-json
+(deftest test-converts-firt-tag-to-json
   (testing "Converts first tag to a json file"
     (is (= (convert-line-to-json (parser "resources/sample-feed.xml")) "{\"rss\":{\"version\":\"2.0\"}}"))
+  ))
+
+(deftest test-different-keys-work
+  (testing "dirrent-keys?"
+    (let [xml1 (parse-str "<Title><h1> Hello </h1> <h1> Bye </h1> </Title>")
+          xml2 (parse-str "<Title><h1> Hello </h1> <h2> Bye </h2> </Title>")]
+    (is (= false (different-keys? (:content xml1))))
+    (is (= true  (different-keys? (:content xml2))))
+    )))
+
+(deftest test-response-xml-to-json
+  (testing "test xml response to json"
+    (is (= (xml->json (parser "resources/sample-feed.xml"))
+     "{:rss {:channel {:title \"FeedForAll Sample Feed\", :title:  {:name \"example xml\"}, :description \"RSS is a fascinating technology.\", :description:  {}}, :channel:  {}}, :rss:  {:version \"2.0\"}}" ))
   ))

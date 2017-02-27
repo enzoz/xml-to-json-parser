@@ -46,6 +46,11 @@
     (is (= (mod-key (:tag (parser "resources/sample-feed.xml"))) "\"rss\" : "))
     ))
 
+(deftest test-if-float-returns-str
+  (testing "test if 2.0 returns \"2.0\""
+    (is (= (is-value 2.0) "\"2.0\""))
+  ))
+
 (deftest test-different-keys-work
   (testing "dirrent-keys?"
     (let [xml1 (parse-str "<Title><h1> Hello </h1> <h1> Bye </h1> </Title>")

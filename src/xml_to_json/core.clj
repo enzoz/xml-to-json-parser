@@ -29,7 +29,7 @@
 (defn xml->json [element]
   (cond
     (nil? element) nil
-    (string? element) element
+    (string? element) (str "\"" element "\"")
     (sequential? element) (if (> (count element) 1)
                            (if (different-keys? element)
                              (reduce into {} (map (partial xml->json ) element))
@@ -38,7 +38,7 @@
     (and (map? element) (empty? element)) {}
     (map? element) (if (:attrs element)
                     {(mod-key (:tag element)) (xml->json (:content element))
-                     (keyword (str (name (:tag element)) " ")) (:attrs element)}
+                    (keyword (mod-key (:tag element))) (:attrs element)}
                     {(mod-key (:tag element)) (xml->json  (:content element))})
     :else nil))
 

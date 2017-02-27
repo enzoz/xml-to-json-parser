@@ -41,6 +41,11 @@
     (is (= (convert-line-to-json (parser "resources/sample-feed.xml")) "{\"rss\":{\"version\":\"2.0\"}}"))
   ))
 
+(deftest test-key-transform-to-string
+  (testing "transforms a key to a modified json string"
+    (is (= (mod-key (:tag (parser "resources/sample-feed.xml"))) "\"rss\" : "))
+    ))
+
 (deftest test-different-keys-work
   (testing "dirrent-keys?"
     (let [xml1 (parse-str "<Title><h1> Hello </h1> <h1> Bye </h1> </Title>")
@@ -52,5 +57,5 @@
 (deftest test-response-xml-to-json
   (testing "test xml response to json"
     (is (= (xml->json (parser "resources/sample-feed.xml"))
-     "{:rss {:channel {:title \"FeedForAll Sample Feed\", :title:  {:name \"example xml\"}, :description \"RSS is a fascinating technology.\", :description:  {}}, :channel:  {}}, :rss:  {:version \"2.0\"}}" ))
+    "{\"rss\" :  {\"channel\" :  {\"title\" :  \"FeedForAll Sample Feed\", :title  {:name \"example xml\"}, \"description\" :  \"RSS is a fascinating technology.\", :description  {}}, :channel  {}}, :rss  {:version \"2.0\"}}"  ))
   ))

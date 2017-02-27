@@ -16,6 +16,10 @@
     (sorted-map (:tag xml) (:tag :rss (:attrs xml)))
   ))
 
+(defn mod-key
+  [keyword]
+  (str "\"" (name keyword) "\" : "))
+
 (defn different-keys? [content]
       (when content
         (let [diffkeys (count (filter identity (distinct (map :tag content))))
@@ -33,9 +37,9 @@
                            (xml->json  (first element)))
     (and (map? element) (empty? element)) {}
     (map? element) (if (:attrs element)
-                    {(:tag element) (xml->json (:content element))
+                    {(mod-key (:tag element)) (xml->json (:content element))
                      (keyword (str (name (:tag element)) " ")) (:attrs element)}
-                    {(:tag element) (xml->json  (:content element))})
+                    {(mod-key (:tag element)) (xml->json  (:content element))})
     :else nil))
 
 (defn -main
